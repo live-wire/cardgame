@@ -1,0 +1,65 @@
+<!doctype html>
+<html ng-app="cardGame">
+  <head>
+    <title>My Angular App</title>
+    <link rel="stylesheet" href="bootstrap.min.css">
+    <style>
+    	.grey{
+    		background-color: #ccc !important;
+    	}
+    	.green {
+    		background-color: #5cb85c ;
+    	}
+    	.yellow {
+    		background-color: #f0ad4e ;
+    	}
+    	.red {
+    		background-color: #d9534f ;
+    	}
+    	.blue {
+    		background-color: #337ab7 ;
+    	}
+    	.hide{
+    		width: 0px;
+    	}
+    	</style>
+
+  </head>
+  <body style="background-color:#efefef;transition: background-color 0.2s ease;">
+
+  <div ng-controller="CardCtrl">
+
+  <div class="row">
+  	<br><br><br>
+  	<div class="container jumbotron" ng-show="!game">
+  		<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4"></div>
+  			<a class="col-lg-4 col-md-4 col-sm-4 col-xs-4 btn btn-success btn-lg" ng-click="game=!game;gameplay();startTimer();">PLAY</a>
+  		<div class="col-lg-4 col-md-3 col-sm-4 col-xs-4"></div>
+  	</div>
+  </div>
+  <div class="container" ng-if="game">
+  	<div class="row">
+  		<div class="col-lg-3 col-md-3 col-sm-1 col-xs-1"><h1 ng-show="(timer>0)&&(game)">{{timer}}</h1></div>
+  		<div class="col-lg-6 col-md-6 col-sm-10 col-xs-10">
+
+  		<div class="row" ng-repeat="g in gridParams">
+  			<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" ng-repeat="card in allCards.slice(g.a,g.b)">
+				<div ng-click="cardClicked(card)"  style="height:150px;width:100%;border-radius:20px;margin-bottom: 10px;float:left;" ng-class="{'grey':card.state=='closed','hide':card.visible=='no','red':card.color=='red','blue':card.color=='blue','yellow':card.color=='yellow','green':card.color=='green'}">
+				</div>
+				<div style="min-height:120px;"></div>
+			</div>
+		</div>
+
+  		</div>
+  		<div class="col-lg-3 col-md-3 col-sm-3 col-xs-1"><span class="label label-default label-lg" ng-show="(game) && (timer<=0)">{{score}}</span> &nbsp;<a class="btn btn-danger" ng-if="endGame" onclick="window.location.reload()">RESET</a></div>
+  	</div>
+  </div>
+
+  </div>
+
+  <script src="angular.min.js"></script>
+  <script src="app.js"></script>
+
+
+  </body>
+</html>
